@@ -10,6 +10,9 @@
 </div>
 
 <section class="mx-5 mb-3">
+<% if current_user.present? %>
+  <span style="color:#3F2F3E; font-family: Verdana, Geneva, Tahoma, sans-serif;">Do you want to add a new category? <%= link_to 'Add New Category', new_category_path, class: "btn btn-sm btn-outline-dark" %></span>
+<% end %>
 <div class="d-flex flex-wrap">
     <% @books.each do |book| %>
       <div class="p-3 border m-1">

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :categories
   #get 'comments/index'
   get 'users/index'
   #get 'dashboard/index'
