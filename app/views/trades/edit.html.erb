@@ -1,0 +1,15 @@
+<section class="mt-5">
+<div class="container">
+  <div class="row text-center">
+    <div class="col-md-6 mx-auto">
+
+<span style="color:#3F2F3E; font-family: Verdana, Geneva, Tahoma, sans-serif;"><%= @trade_user.username%> suggested <%= @trade_book.title%></span>
+<p>
+<%= link_to 'Approve', { :controller => :trades, :action => :approve}, :class => 'btn btn-outline-dark mt-3' %>
+<%= link_to 'Deny', { :controller => :trades, :action => :deny}, :class => 'btn btn-outline-dark mt-3' %>
+</p>
+
+</div>
+</div>
+</div>
+</section>

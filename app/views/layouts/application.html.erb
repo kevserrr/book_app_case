@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BookApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  </head>
+
+  <body style="background-color:#fafffb;">
+  <div>
+  
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:rgba(174, 168, 211, 1);">
+  <a class="navbar-brand" href="/"><span id="baslik">BOOK HOUSE</span></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+    <% if user_signed_in? %>
+      <li class="nav-item">
+        <a class="nav-link" href="/"><span style="color:rgba(236, 240, 241, 1); font-size:14pt;">Home</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<%=dashboard_index_url %>"><span style="color:rgba(236, 240, 241, 1); font-size:14pt">Dashboard</span></a>
+      </li>
+      <% end %>
+    </ul>
+    <% if user_signed_in? %>
+    <ul class="navbar-nav" style="margin-left:500px;">
+    <li class="nav-item pt-2"><p style="color:rgba(236, 240, 241, 1);">Welcome to the book share app <strong><%= current_user.username %></strong>.</p></li>
+      <li class="nav-item mx-2">
+         <%= link_to 'Edit profile', edit_user_registration_path, :class => 'btn btn-outline-dark' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-outline-dark'  %>
+      </li>
+    </ul>
+<% else %>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item mx-2">
+        <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-outline-secondary'  %>
+      </li>
+      <li class="nav-item mr-5">
+        <%= link_to "Login", new_user_session_path, :class => 'btn btn-outline-secondary'  %>
+      </li>
+      <li class="nav-item"></li>
+    </ul>
+    <% end %>
+    </nav>
+   
+</div>
+     <%= yield %>
+  </div>
+
+  </body>
+</html>
+

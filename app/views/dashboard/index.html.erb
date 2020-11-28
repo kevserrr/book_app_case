@@ -1,0 +1,105 @@
+<section class="mx-5 mb-3">
+<div class="mt-5 mb-3">
+  <h5 style="color:#3F2F3E; font-size:20pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">My Books</h5>
+  <div class="mb-2">
+<span style="color:#3F2F3E; font-family: Verdana, Geneva, Tahoma, sans-serif;">Do you want to share a new book? <%= link_to 'Add New Book', new_book_path, class: "btn btn-sm btn-outline-dark" %></span>
+</div>
+  </div>
+  
+<div class="d-flex flex-wrap">
+
+<p><% if @books.all.length == 0 %>
+<div class="p-3 border m-1">
+    <h6 style="color:#3F2F3E; font-family: Verdana, Geneva, Tahoma, sans-serif;">You don't have a book</h6>
+    </div>
+  <% end %>
+   </p>
+<% @books.each do |book| %>
+<div class="p-3 border m-1">
+  <p><span class="label label-primary" style="color:rgba(103, 65, 114, 1);"><em>Title</em></span>  <%= book.title %></p>
+  <p><span class="label label-primary" style="color:rgba(103, 65, 114, 1);"><em>Author</em></span> <%= book.author %></p>
+  <p><span class="label label-primary" style="color:rgba(103, 65, 114, 1);"><em>Page Count</em></span> <%= book.page_count %></p>
+  <p><span class="label label-primary" style="color:rgba(103, 65, 114, 1);"><em>Status</em></span> <%= book.status %></p>
+  <p><%= link_to 'Show', book_path(book), class: "btn btn-sm btn-outline-dark" %> <%= link_to 'Edit', edit_book_path(book), class: "btn btn-sm btn-outline-dark" %>
+  <% trade_control = Trade.where(suggestion_book_id: book.id).or(Trade.where(book_id: book.id)).first %>
+  <% if !trade_control %>
+      <%= link_to 'Destroy', book_path(book), class: "btn btn-sm btn-outline-dark" ,
+              method: :delete,
+              data: { confirm: 'Are you sure?'} %>
+     <% end %>
+  </p>
+</div>
+ <% end %>
+</div>
+</section>
+
+<section class="ml-5 mr-5 mb-5">
+<div class="mt-5 mb-3">
+  <h5 style="color:rgba(92, 151, 191, 1); font-size:18pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Input Comments</h5>
+  </div>
+
+<div class="d-flex flex-wrap ">
+   <% @books.each do |book| %>
+      <% book.comments.each do |comment| %>
+  <div class="p-3 border m-1">
+        
+        <p><%= link_to 'Confirm', edit_book_comment_path(book, comment), class:"btn btn-info btn-sm", style:"background-color:rgba(92, 151, 191, 1) !important; " %></p> 
+        <p><span class="label label-primary" style="color:rgba(92, 151, 191, 1);"><em>Title</em></span> <%= comment.title %></p>
+        <p><span class="label label-primary" style="color:rgba(92, 151, 191, 1);"><em>Content</em></span> <%= comment.content %></p>
+        <p style="color:#3F2F3E; font-family: Verdana, Geneva, Tahoma, sans-serif;"><strong><%= comment.user.username %></strong> commented on your <strong><%= comment.book.title %></strong> book.</p>    
+  </div>  
+   <% end %>
+  <% end %>
+</div>
+
+
+<div class="mt-5 mb-3">
+  <h5 style="color:rgba(226, 106, 106, 1); font-size:18pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">My Comments</h5>
+  </div>
+ <div class="d-flex flex-wrap "> 
+   
+    <% current_user.comments.each do |comment| %>
+    <div class="p-3 border m-1">
+      <p><span class="label label-primary" style="color:rgba(226, 106, 106, 1);"><em>Book</em></span>  <%= comment.book.title %></p>
+      <p><span class="label label-primary" style="color:rgba(226, 106, 106, 1);"><em>Content Title</em></span>  <%= comment.title %></p>
+      <p><span class="label label-primary" style="color:rgba(226, 106, 106, 1);"><em>Content</em></span> <%= comment.content %></p> 
+     </div>
+    <% end %>
+    
+  </div>
+</div>
+
+
+<div class="mt-5 mb-3">
+<h2 style="color:rgba(77, 175, 124, 1); font-size:16pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">My Book Trades</h2>
+</div>
+ <div class="d-flex flex-wrap "> 
+
+<% @my_trade.each do |trade| %>
+<div class="p-3 border m-1">
+<p><span class="label label-primary" style="color:rgba(77, 175, 124, 1);"><em>Book</em></span>  <%= Book.find(trade.book_id).title %></p>
+<p><span class="label label-primary" style="color:rgba(77, 175, 124, 1);"><em>User</em></span> <%= Book.find(trade.book_id).user.username %></p>
+<p><span class="label label-primary" style="color:rgba(77, 175, 124, 1);"><em>Status</em></span>  <%= trade.trade_status %></p>
+</div>
+<br>
+  <% end %>
+
+</div>
+
+<div class="mt-5 mb-3">
+<h2 style="color:#53666c; font-size:16pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Book Request</h2>
+</div>
+<div class="d-flex flex-wrap "> 
+<% @trades_book.each do |trade| %>
+<div class="p-3 border m-1">
+ <p> <%= link_to "Answer", edit_book_trade_path(trade.book_id, trade.id), class:"btn btn-info btn-sm", style:"background-color:#53666c !important; "  %></p>
+ <p><strong><%= User.find(trade.user_id).username %></strong> requested to your <strong><%= Book.find(trade.book_id).title %></strong> book. </p>
+  </div> 
+<% end %>
+
+  </div>
+</section>
+
+
+
+

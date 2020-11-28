@@ -1,0 +1,19 @@
+<section class="mt-5">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-6 mx-auto">
+    
+      <p><span class="label label-primary"  style="color:rgba(77, 175, 124, 1);"><em>Book:</em></span> <%= @comment.book.title %></p>
+      <p><span class="label label-primary"  style="color:rgba(226, 106, 106, 1);"><em>Comment Title:</em></span> <%= @comment.title %></p>
+      <p><span class="label label-primary"  style="color:rgba(92, 151, 191, 1);"><em>Comment Content:</em></span> <%= @comment.content  %></p>
+
+<%= form_for([@book, @comment]) do |list| %>
+  <p><%= list.submit "Approve", :class => 'btn btn-outline-dark mt-2'%></p>
+<% end %>
+
+<p><%= link_to 'Back', dashboard_index_url, :class => 'btn btn-outline-dark mt-2' %></p>
+
+      </div>
+    </div>
+  </div>
+</section>
