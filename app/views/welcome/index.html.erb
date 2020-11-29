@@ -7,28 +7,24 @@
     <% if alert %>
       <p><%= alert %></p>
     <% end %>
-
 </div>
 
 <section class="mx-5 mb-3">
   <div class="row">
 
     <div class="col-md-8">
-    <% if current_user.present? %>
-      <span style="color:#3F2F3E; font-family: Verdana, Geneva, Tahoma, sans-serif;">Do you want to add a new category? <%= link_to 'Add New Category', new_category_path, class: "btn btn-sm btn-outline-dark mb-2" %></span>
-    <% end %>
-    <div class="d-flex flex-wrap">
-      <% @books.each do |book| %>
-        <div class="p-3 border m-1">
-          <p><span class="label label-primary"  style="color:rgba(77, 175, 124, 1);"><em>Title</em></span> <%= book.title %></p>
-          <p><span class="label label-primary"  style="color:rgba(226, 106, 106, 1);"><em>Author</em></span> <%= book.author %></p>
-          <p><span class="label label-primary"  style="color:rgba(92, 151, 191, 1);"><em>Username</em></span> <%= book.user.username %></p>
-          <% if current_user.present? %>
-            <p><%= link_to 'Show', book_path(book), :class => 'btn btn-sm btn-outline-secondary' %></p>
-          <% end %>
+      <div class="d-flex flex-wrap">
+        <% @books.each do |book| %>
+          <div class="p-3 border m-1">
+            <p><span class="label label-primary"  style="color:rgba(77, 175, 124, 1);"><em>Title</em></span> <%= book.title %></p>
+            <p><span class="label label-primary"  style="color:rgba(226, 106, 106, 1);"><em>Author</em></span> <%= book.author %></p>
+            <p><span class="label label-primary"  style="color:rgba(92, 151, 191, 1);"><em>Username</em></span> <%= book.user.username %></p>
+            <% if current_user.present? %>
+              <p><%= link_to 'Show', book_path(book), :class => 'btn btn-sm btn-outline-secondary' %></p>
+            <% end %>
+        </div>
+        <% end %>
       </div>
-      <% end %>
-    </div>
   </div>
 
     <div class="col-md-4">
@@ -43,9 +39,15 @@
                 <%= link_to category.name, books_path(category: category.name), :style => 'color:#3F2F3E; font-size:12pt;' %>
                 <span class="badge badge-pill badge-light"><%= category.books.count %></span>
               </li>
-              <% end %>
+            <% end %>
           </blockquote>
         </div>
+        <% if current_user.present? %>
+          <div class="card-footer">
+            <%= link_to 'Add New Category', new_category_path, class: "btn btn-sm btn-outline-dark mb-2" %>
+          </div>
+      <% end %>
+        
       </div>
     </div>
     
