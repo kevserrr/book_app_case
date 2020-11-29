@@ -1,62 +1,58 @@
 <section>
   <div class="container">
     <div class="row">
+
       <div class="col-md-6 text-center mt-4">
-      <h5 style="color:#3F2F3E; font-size:14pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Book Info</h5>
-      <div class="p-3 border m-1">
-      <p><span class="label label-primary" style="color:rgba(77, 175, 124, 1);"><em>Title</em></span>  <%=  @book.title %></p>
-      <p><span class="label label-primary" style="color:rgba(226, 106, 106, 1);"><em>Author</em></span> <%= @book.author %></p>
-      <p><span class="label label-primary" style="color:rgba(103, 65, 114, 1);"><em>Username</em></span> <%= @book.user.username %></p>
-      <p> <span class="label label-primary" style="color:rgba(92, 151, 191, 1);"><em>Tradeble Status</em></span> <%= @book.barter_status %></p>
+        <h5 style="color:#3F2F3E; font-size:14pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Book Info</h5>
+        <div class="p-3 border m-1">
+          <p><span class="label label-primary" style="color:rgba(77, 175, 124, 1);"><em>Title</em></span>  <%=  @book.title %></p>
+          <p><span class="label label-primary" style="color:rgba(226, 106, 106, 1);"><em>Author</em></span> <%= @book.author %></p>
+          <p><span class="label label-primary" style="color:rgb(230, 230, 0);"><em>Category</em></span> <%= @book.category.name %></p>
+          <p><span class="label label-primary" style="color:rgba(103, 65, 114, 1);"><em>Username</em></span> <%= @book.user.username %></p>
+          <p><span class="label label-primary" style="color:rgba(92, 151, 191, 1);"><em>Tradeble Status</em></span> <%= @book.barter_status %></p>
 
-      <% if @book.barter_status == true  %>
-        <% if current_user == @book.user  %>
-          <p>You don't make a request for your own book</p> 
-        <% else %>
-          <p><span class="label label-primary" style="color:#53666c;"><em>Tradeble</em></span> <a href="<%= new_book_trade_path(@book.id) %>" class="btn btn-sm btn-outline-dark mt-2">Trade </a></p>
-        <% end %>  
-      <% end %>
-      
+          <% if @book.barter_status == true  %>
+            <% if current_user == @book.user  %>
+              <p>You don't make a request for your own book</p> 
+            <% else %>
+              <p><span class="label label-primary" style="color:#53666c;"><em>Tradeble</em></span> <a href="<%= new_book_trade_path(@book.id) %>" class="btn btn-sm btn-outline-dark mt-2">Trade </a></p>
+            <% end %>  
+          <% end %>     
+        </div>
+      </div>
+
+      <div class="col-md-6 text-center mt-4">
+        <h5 style="color:#3F2F3E; font-size:14pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Add a comment</h5>
+        <%= form_with(model:[ @book, @book.comments.build ], local: false) do |f| %>
+          <p>
+            <%= f.label :Title, :style => 'color:#3F2F3E; font-size:12pt;' %><br/>
+            <%= f.text_field :title, :class => 'form-control' %>
+          </p>
+          <p>
+            <%= f.label :Content, :style => 'color:#3F2F3E; font-size:12pt;' %><br />
+            <%= f.text_area :content, :class => 'form-control' %>
+          </p>
+          <p>
+            <%= f.submit :class => 'btn btn-outline-dark mt-2' %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 text-center mt-4">
+        <h5 style="color:#3F2F3E; font-size:14pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Comments</h5>
+        <%= render @book.comments.approved %>
+      </div>
+
+      <div class="col-md-6 text-center mt-4">
+        <h5 style="color:#3F2F3E; font-size:14pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Comments pending approval</h5>
+        <div class="comments"> 
+          <%= render @book.comments.where(user_id:current_user.id, accept:nil)%>
+        </div> 
+      </div>
+    </div>
+
     </div>
   </div>
-
-
-
-<div class="col-md-6 text-center mt-4">
-  <h5 style="color:#3F2F3E; font-size:14pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Add a comment</h5>
-  <%= form_with(model:[ @book, @book.comments.build ], local: false) do |f| %>
-    <p>
-      <%= f.label :Title, :style => 'color:#3F2F3E; font-size:12pt;' %><br/>
-      <%= f.text_field :title, :class => 'form-control' %>
-    </p>
-    <p>
-      <%= f.label :Content, :style => 'color:#3F2F3E; font-size:12pt;' %><br />
-      <%= f.text_area :content, :class => 'form-control' %>
-    </p>
-    <p>
-      <%= f.submit :class => 'btn btn-outline-dark mt-2' %>
-    </p>
-  <% end %>
-  </div>
-</div>
-
-<div class="row">
-<div class="col-md-6 text-center mt-4">
-<h5 style="color:#3F2F3E; font-size:14pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Comments</h5>
-<%= render @book.comments.approved %>
-
-</div>
-<div class="col-md-6 text-center mt-4">
-<h5 style="color:#3F2F3E; font-size:14pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Comments pending approval</h5>
-
-
-<div class="comments"> 
-<%= render @book.comments.where(user_id:current_user.id, accept:nil)%>
-</div> 
-
-    </div>
-    </div>
-
-    </div>
-    </div>
-  </section>
+</section>

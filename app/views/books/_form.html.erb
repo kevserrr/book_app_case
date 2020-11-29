@@ -24,6 +24,10 @@
     <%= form.text_area :author, :class => 'form-control' %>
   </p>
 
+  <p>
+    <%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select a Category", :class => 'form-control') %>
+  </p>
+
    <p>
     <%= form.label :page_count, :style => 'color:#3F2F3E; font-size:12pt;' %><br>
     <%= form.number_field :page_count, :class => 'form-control' %>

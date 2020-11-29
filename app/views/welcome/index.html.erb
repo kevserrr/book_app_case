@@ -1,30 +1,33 @@
 <div class="well text-center mt-5 mb-5">
-    <h1 style="color:#3F2F3E; font-size:20pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Shareable Books</h1> 
+  <h1 style="color:#3F2F3E; font-size:20pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Shareable Books</h1> 
        
     <% if notice %>
-     <p><%= notice %></p>
-   <% end %>
-   <% if alert %>
-     <p><%= alert %></p>
-   <% end %>
+      <p><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p><%= alert %></p>
+    <% end %>
+
 </div>
 
 <section class="mx-5 mb-3">
-<% if current_user.present? %>
-  <span style="color:#3F2F3E; font-family: Verdana, Geneva, Tahoma, sans-serif;">Do you want to add a new category? <%= link_to 'Add New Category', new_category_path, class: "btn btn-sm btn-outline-dark" %></span>
-<% end %>
-<div class="d-flex flex-wrap">
+
+  <% if current_user.present? %>
+    <span style="color:#3F2F3E; font-family: Verdana, Geneva, Tahoma, sans-serif;">Do you want to add a new category? <%= link_to 'Add New Category', new_category_path, class: "btn btn-sm btn-outline-dark mb-2" %></span>
+  <% end %>
+  <div class="d-flex flex-wrap">
     <% @books.each do |book| %>
       <div class="p-3 border m-1">
-      <p><span class="label label-primary"  style="color:rgba(77, 175, 124, 1);"><em>Title</em></span> <%= book.title %></p>
-      <p><span class="label label-primary"  style="color:rgba(226, 106, 106, 1);"><em>Author</em></span> <%= book.author %></p>
-      <p><span class="label label-primary"  style="color:rgba(92, 151, 191, 1);"><em>Username</em></span> <%= book.user.username %></p>
-      <% if current_user.present? %>
-      <p><%= link_to 'Show', book_path(book), :class => 'btn btn-sm btn-outline-secondary' %></p>
-      <% end %>
-      </div>
- <% end %>
+        <p><span class="label label-primary"  style="color:rgba(77, 175, 124, 1);"><em>Title</em></span> <%= book.title %></p>
+        <p><span class="label label-primary"  style="color:rgba(226, 106, 106, 1);"><em>Author</em></span> <%= book.author %></p>
+        <p><span class="label label-primary"  style="color:rgba(92, 151, 191, 1);"><em>Username</em></span> <%= book.user.username %></p>
+        
+        <% if current_user.present? %>
+          <p><%= link_to 'Show', book_path(book), :class => 'btn btn-sm btn-outline-secondary' %></p>
+        <% end %>
 
+    </div>
+    <% end %>
   </div>
 </section>
 

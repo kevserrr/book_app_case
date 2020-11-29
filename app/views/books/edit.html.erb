@@ -1,14 +1,63 @@
 <section class="mt-5">
-<div class="container">
-  <div class="row text-center">
-    <div class="col-md-6 mx-auto">
-<h1 style="color:#3F2F3E; font-size:14pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Edit Book</h1>
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-6 mx-auto">
+      
+      <h1 style="color:#3F2F3E; font-size:14pt; font-family: Verdana, Geneva, Tahoma, sans-serif;">Edit Book</h1>
  
-<%= render 'form' %>
+      <%= form_with(model: @book, local: true) do |form| %>
+        <% if @book.errors.any? %>
+          <div id="error_explanation">
+            <h2>
+              <%= pluralize(@book.errors.count, "error") %> prohibited
+              this article from being saved:
+            </h2>
+            <ul>
+              <% @book.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+ 
+          <p>
+            <%= form.label :title, :style => 'color:#3F2F3E; font-size:12pt;' %><br>
+            <%= form.text_field :title, :class => 'form-control' %>
+          </p>
+        
+          <p>
+            <%= form.label :author, :style => 'color:#3F2F3E; font-size:12pt;' %><br>
+            <%= form.text_area :author, :class => 'form-control' %>
+          </p>
 
-<%= link_to 'Back', dashboard_index_url, :class => 'btn btn-outline-dark mt-2' %>
-</div>
-</div>
-</div>
+          <p>
+            <%= form.select :category_id, @categories, {} ,{ class: "form-control" } %>
+          </p>
+
+          <p>
+            <%= form.label :page_count, :style => 'color:#3F2F3E; font-size:12pt;' %><br>
+            <%= form.number_field :page_count, :class => 'form-control' %>
+          </p>
+
+          <p>
+            <%= form.label :status, :style => 'color:#3F2F3E; font-size:12pt;' %><br>
+            <%= form.check_box :status %>
+          </p>
+
+          <p>
+            <%= form.label :barter_status, :style => 'color:#3F2F3E; font-size:12pt;' %><br>
+            <%= form.check_box :barter_status %>
+          </p>
+
+          <p>
+            <%= form.submit :class => 'btn btn-outline-dark mt-2' %>
+          </p>
+      <% end %>
+
+      <%= link_to 'Back', dashboard_index_url, :class => 'btn btn-outline-dark mt-2' %>
+
+      </div>
+    </div>  
+  </div>
 </section>
  
