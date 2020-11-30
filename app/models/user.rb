@@ -6,21 +6,21 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
          
+  validate :set_username
 
- def login
+  def login
      @login || self.email || self.username
    end
 
  attr_writer :login
   
-
 private
 
   def set_username
     self.username = self.email.split("@").first()
     validates_length_of :username,
-    :within => 5..50,
-    :presence => true
+    :within => 4..50,
+    :presence => true  
   end
 
   def self.find_first_by_auth_conditions(warden_conditions)
