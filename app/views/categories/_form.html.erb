@@ -5,6 +5,13 @@
         <p style="color:#3F2F3E; font-size:16pt;">Please, enter a new category</p>
 
         <%= form_for @category do |f| %>
+          <% if @category.errors.any? %>
+            <ul style="list-style-type:none;">
+              <% @category.errors.full_messages.each do |message| %>
+                <li class="text-center"><%= message %></li>
+              <% end %>
+            </ul>
+          <% end %>
             <%= f.text_field :name, :class => 'form-control'%><br>    
             <%= f.submit "Create New Category"%>
         <% end %>
