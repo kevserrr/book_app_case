@@ -1,24 +1,11 @@
-# README
+## Book Share App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+An easy and fun way to share new books and swap books
 
-Things you may want to cover:
+### Installation
 
-* Ruby version
+`git clone` `https://github.com/kevserrr/book_app_case.git`
 
-* System dependencies
+### Application Link
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+https://limitless-river-22482.herokuapp.com/
